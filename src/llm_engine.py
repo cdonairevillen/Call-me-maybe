@@ -4,10 +4,10 @@ import re
 import numpy as np
 from typing import Any
 
-_NUM_RE = re.compile(r"-?\d+\.?\d*")
-_ALPHA_RE = re.compile(r"[a-zA-Z]")
-_LOWER_WORDS_RE = re.compile(r"[a-z]+")
-_QUOTED_RE = re.compile(r"'([^']*)'|\"([^\"]*)\"")
+NUM_RE = re.compile(r"-?\d+\.?\d*")
+ALPHA_RE = re.compile(r"[a-zA-Z]")
+LOWER_WORDS_RE = re.compile(r"[a-z]+")
+QUOTED_RE = re.compile(r"'([^']*)'|\"([^\"]*)\"")
 
 
 class LLMEngine:
@@ -19,22 +19,22 @@ class LLMEngine:
     produce structured output.
     """
 
-    _WORD_TO_NUM: dict[str, int] = {
+    WORD_TO_NUM: dict[str, int] = {
         "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4,
         "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
         "ten": 10, "eleven": 11, "twelve": 12,
     }
 
-    _IGNORED_WORDS: frozenset[str] = frozenset({
+    IGNORED_WORDS: frozenset[str] = frozenset({
         "what", "is", "the", "of", "and", "please",
         "can", "you", "i", "have", "a", "question", "about",
     })
 
-    _NUMERIC_TYPES: frozenset[str] = frozenset(
+    NUMERIC_TYPES: frozenset[str] = frozenset(
         {"number", "int", "float", "integer"}
     )
 
-    _STRING_TYPES: frozenset[str] = frozenset({"string", "str"})
+    STRING_TYPES: frozenset[str] = frozenset({"string", "str"})
 
     def __init__(self) -> None:
         self.model: Small_LLM_Model = Small_LLM_Model()
@@ -83,11 +83,11 @@ class LLMEngine:
 
     def is_numeric(self, type_str: str) -> bool:
         """Return True if type_str represents a numeric parameter type."""
-        return type_str.lower() in self._NUMERIC_TYPES
+        return type_str.lower() in self.NUMERIC_TYPES
 
     def is_string(self, type_str: str) -> bool:
         """Return True if type_str represents a string parameter type."""
-        return type_str.lower() in self._STRING_TYPES
+        return type_str.lower() in self.STRING_TYPES
 
     # ------------------------------------------------------------------
     # Function classification
@@ -230,7 +230,7 @@ class LLMEngine:
 
         lowered = prompt.lower()
 
-        if not _ALPHA_RE.search(prompt):
+        if not ALPHA_RE.search(prompt):
             return None
 
         has_replace_verb = bool(
@@ -255,13 +255,13 @@ class LLMEngine:
             source = (
                 fn.name.replace("_", " ") + " " + fn.description
             ).lower()
-            for word in _LOWER_WORDS_RE.findall(source):
+            for word in LOWER_WORDS_RE.findall(source):
                 if len(word) > 2:
                     supported_words.add(word)
 
         prompt_keywords = [
-            w for w in _LOWER_WORDS_RE.findall(lowered)
-            if w not in self._IGNORED_WORDS
+            w for w in LOWER_WORDS_RE.findall(lowered)
+            if w not in self.IGNORED_WORDS
         ]
 
         if len(prompt_keywords) == 1:
@@ -321,10 +321,10 @@ class LLMEngine:
         """
         found: list[int | float] = [
             float(r) if "." in r else int(r)
-            for r in _NUM_RE.findall(prompt)
+            for r in NUM_RE.findall(prompt)
         ]
         lowered = prompt.lower()
-        for word, value in self._WORD_TO_NUM.items():
+        for word, value in self.WORD_TO_NUM.items():
             if re.search(r"\b" + word + r"\b", lowered):
                 found.append(value)
         return found
@@ -333,7 +333,7 @@ class LLMEngine:
         """Return all strings found between single or double quotes."""
         return [
             a if a else b
-            for a, b in _QUOTED_RE.findall(prompt)
+            for a, b in QUOTED_RE.findall(prompt)
         ]
 
     def extract_number_param(
