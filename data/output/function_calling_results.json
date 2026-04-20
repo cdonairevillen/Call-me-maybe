@@ -1,1 +1,254 @@
-[]
+[
+  {
+    "prompt": "",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "   ",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "\n\n\n",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "???",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "!!!!!!!",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "2 3 4 5 6 7 8 9 10",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "sum sum sum sum",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 0,
+      "b": 0
+    }
+  },
+  {
+    "prompt": "add",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "ADD",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "Add ADD add",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 0,
+      "b": 0
+    }
+  },
+  {
+    "prompt": "What is 2++2?",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 2,
+      "b": 2
+    }
+  },
+  {
+    "prompt": "What is 2--2?",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 2,
+      "b": -2
+    }
+  },
+  {
+    "prompt": "What is 2///2?",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 2,
+      "b": 2
+    }
+  },
+  {
+    "prompt": "What is the sum of minus minus five?",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 5,
+      "b": 0
+    }
+  },
+  {
+    "prompt": "What is the sum of - - 5?",
+    "name": "fn_add_values",
+    "parameters": {
+      "x": 5,
+      "y": 0
+    }
+  },
+  {
+    "prompt": "Square root of -9 in real numbers",
+    "name": "fn_root",
+    "parameters": {
+      "value": -9
+    }
+  },
+  {
+    "prompt": "Square root of -9 in complex domain",
+    "name": "fn_root",
+    "parameters": {
+      "value": -9
+    }
+  },
+  {
+    "prompt": "Replace 'a' with 'b' in 'banana'",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "banana",
+      "old": "a",
+      "new": "b"
+    }
+  },
+  {
+    "prompt": "Replace 'a' with 'b' in banana without quotes",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "b",
+      "old": "a",
+      "new": "b"
+    }
+  },
+  {
+    "prompt": "Replace a with b in banana",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "",
+      "old": "",
+      "new": "b"
+    }
+  },
+  {
+    "prompt": "Substitute 'cat' with 'dog' in 'catcatcat'",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "catcatcat",
+      "old": "cat",
+      "new": "dog"
+    }
+  },
+  {
+    "prompt": "Substitute cat with dog in catcatcat",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "",
+      "old": "",
+      "new": "dog"
+    }
+  },
+  {
+    "prompt": "Reverse ''",
+    "name": "fn_reverse_word",
+    "parameters": {
+      "word": ""
+    }
+  },
+  {
+    "prompt": "Reverse \"\"",
+    "name": "fn_reverse_word",
+    "parameters": {
+      "word": ""
+    }
+  },
+  {
+    "prompt": "Reverse '\"'",
+    "name": "fn_reverse_word",
+    "parameters": {
+      "word": "\""
+    }
+  },
+  {
+    "prompt": "'unterminated string test",
+    "name": "fn_reverse_word",
+    "parameters": {
+      "word": ""
+    }
+  },
+  {
+    "prompt": "\"unterminated string test",
+    "name": "fn_reverse_word",
+    "parameters": {
+      "word": ""
+    }
+  },
+  {
+    "prompt": "broken 'quote \" mix",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "   Add     two      numbers   3   and    4   ",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 3,
+      "b": 4
+    }
+  },
+  {
+    "prompt": "add two numbers BUT ALSO reverse string pls",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 2,
+      "b": 0
+    }
+  },
+  {
+    "prompt": "I think maybe you should multiply 4 and 5 or maybe not",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "\ud83d\udd22\u2795\ud83d\udd22",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "\u6570\u5b66\u306e\u5408\u8a08\u306f\u4f55\u3067\u3059\u304b",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "\u00bfcu\u00e1nto es dos m\u00e1s dos?",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "root of root of root of 256",
+    "name": "fn_root",
+    "parameters": {
+      "value": 256
+    }
+  },
+  {
+    "prompt": "Replace vowels in hello with * and also reverse it and also add 2+2",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "",
+      "old": "[aeiouAEIOU]",
+      "new": "*"
+    }
+  }
+]
