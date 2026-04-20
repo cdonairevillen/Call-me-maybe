@@ -47,9 +47,7 @@ class LLMEngine:
         self.encode_cache: dict[str, list[int]] = {}
         self.logits_cache: dict[int, np.ndarray] = {}
 
-    # ------------------------------------------------------------------
-    # Core model interface
-    # ------------------------------------------------------------------
+    # Model Interface
 
     def encode(self, text: str) -> list[int]:
         """Encode text to token ids, caching results."""
@@ -77,9 +75,7 @@ class LLMEngine:
         self.logits_cache[key] = result
         return result
 
-    # ------------------------------------------------------------------
-    # Type helpers
-    # ------------------------------------------------------------------
+    # Type Helpers
 
     def is_numeric(self, type_str: str) -> bool:
         """Return True if type_str represents a numeric parameter type."""
@@ -89,9 +85,7 @@ class LLMEngine:
         """Return True if type_str represents a string parameter type."""
         return type_str.lower() in self.STRING_TYPES
 
-    # ------------------------------------------------------------------
-    # Function classification
-    # ------------------------------------------------------------------
+    # Function Classification
 
     def is_substitution_fn(self, fn: Any) -> bool:
         """Return True if fn is a text-substitution function.
@@ -113,15 +107,10 @@ class LLMEngine:
         )
         return string_param_count >= 2 and name_hints is not None
 
-    # ------------------------------------------------------------------
-    # Function selection
-    # ------------------------------------------------------------------
+    # Function Selection
 
-    def build_selection_prompt(
-        self,
-        prompt: str,
-        functions: list[Any],
-    ) -> str:
+    def build_selection_prompt(self, prompt: str,
+                               functions: list[Any]) -> str:
         """Build the context prompt used for logit-based function scoring.
 
         The prompt ends just before the model would write the function
@@ -156,11 +145,8 @@ class LLMEngine:
             "        "
         )
 
-    def sequence_logprob(
-        self,
-        prefix_ids: list[int],
-        tokens: list[int],
-    ) -> float:
+    def sequence_logprob(self, prefix_ids: list[int],
+                         tokens: list[int]) -> float:
         """Compute the mean log-probability of a token sequence.
 
         Performs one forward pass per token in the sequence beyond the
@@ -175,13 +161,14 @@ class LLMEngine:
             if i < len(tokens) - 1:
                 current_ids = current_ids + [token_id]
                 current_logits = self.logits(current_ids)
+
+        if not tokens:
+            raise ValueError("Empty token sequence in logprob computation")
+
         return score / len(tokens)
 
-    def rank_substitution_functions(
-        self,
-        prompt: str,
-        substitution_fns: list[Any],
-    ) -> Any:
+    def rank_substitution_functions(self, prompt: str,
+                                    substitution_fns: list[Any]) -> Any:
         """Rank substitution function candidates using logit scoring."""
         sel_prompt = self.build_selection_prompt(
             prompt, substitution_fns
@@ -204,11 +191,8 @@ class LLMEngine:
                 best_fn = fn
         return best_fn
 
-    def select_function(
-        self,
-        prompt: str,
-        functions: list[Any],
-    ) -> Any | None:
+    def select_function(self, prompt: str,
+                        functions: list[Any]) -> Any | None:
         """Select the best matching function for a prompt.
 
         Selection proceeds through three stages:
@@ -307,9 +291,7 @@ class LLMEngine:
 
         return None if best_obj is None else best_obj
 
-    # ------------------------------------------------------------------
-    # Value extraction helpers
-    # ------------------------------------------------------------------
+    # Value Expectation Helper
 
     def extract_numbers(self, prompt: str) -> list[int | float]:
         """Extract all numeric values from a prompt.
@@ -336,11 +318,9 @@ class LLMEngine:
             for a, b in QUOTED_RE.findall(prompt)
         ]
 
-    def extract_number_param(
-        self,
-        prompt: str,
-        already_extracted: dict[str, Any],
-    ) -> int | float:
+    def extract_number_param(self, prompt: str,
+                             already_extracted: dict[str, Any]
+                             ) -> int | float:
         """Extract the next numeric value not yet assigned to a parameter.
 
         Uses the count of already-extracted parameters as an index into
@@ -466,17 +446,14 @@ class LLMEngine:
         if param_name == "regex":
             return (
                 self.infer_pattern(prompt)
-                or (quoted[0] if quoted else ".")
-            )
+                or (quoted[0] if quoted else "."))
 
         if param_name == "replacement":
             return self.extract_replacement(prompt)
 
         return quoted[0] if quoted else ""
 
-    # ------------------------------------------------------------------
-    # Parameter extraction
-    # ------------------------------------------------------------------
+    # Parameter Extraction
 
     def param_selector(self, prompt: str, param_name: str,
                        param_type: str,
@@ -512,6 +489,7 @@ class LLMEngine:
         return params
 
     # MAIN FUNCTION
+
     def generate_function_call(self, prompt: str,
                                functions: list[Any]) -> dict[str, Any]:
         """Map a natural language prompt to a function call.

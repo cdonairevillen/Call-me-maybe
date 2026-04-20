@@ -1,26 +1,69 @@
 import json
-from typing import List
+from typing import Any, List
 from .models import FunctionDefinition, PromptInput
 
 
-def load_json_file(path: str) -> None:
+def load_json_file(path: str) -> Any:
+    """
+    Load and parse a JSON file.
 
+    Args:
+        path: Path to JSON file.
+
+    Returns:
+        Parsed JSON content.
+
+    Raises:
+        Exception: If file is missing or invalid.
+    """
     try:
-        with open(path, "r") as file:
+        with open(path, "r", encoding="utf-8") as file:
             return json.load(file)
 
-    except FileNotFoundError:
-        raise Exception(f"File not found: {path}")
+    except FileNotFoundError as exc:
+        raise Exception(f"File not found: {path}") from exc
 
-    except json.JSONDecodeError:
-        raise Exception(f"Invalid JSON: {path}")
+    except json.JSONDecodeError as exc:
+        raise Exception(f"Invalid JSON: {path}") from exc
 
 
 def load_functions(path: str) -> List[FunctionDefinition]:
+    """
+    Load function definitions from JSON file.
+
+    Args:
+        path: Path to definitions file.
+
+    Returns:
+        List of validated function definitions.
+    """
     data = load_json_file(path)
-    return [FunctionDefinition(**fn) for fn in data]
+    functions = []
+    for function in data:
+        try:
+            functions.append(FunctionDefinition(**function))
+
+        except Exception as e:
+            print(f"INVALID FUNCTION SKIPPED: {e}")
+    return functions
 
 
 def load_prompts(path: str) -> List[PromptInput]:
+    """
+    Load prompts from JSON file.
+
+    Args:
+        path: Path to prompts file.
+
+    Returns:
+        List of validated prompts.
+    """
     data = load_json_file(path)
-    return [PromptInput(**p) for p in data]
+    prompts = []
+    for prompt in data:
+        try:
+            prompts.append(PromptInput(**prompt))
+
+        except Exception as e:
+            print(f"INVALID PROMPR SKIPPED: {e}")
+    return prompts

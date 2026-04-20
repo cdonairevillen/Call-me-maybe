@@ -1,0 +1,196 @@
+[
+  {
+    "prompt": "",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": " ",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "???",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "2 3 4",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "sum",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "root",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "multiply",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "Add two and three",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 2,
+      "b": 3
+    }
+  },
+  {
+    "prompt": "What is minus five plus two?",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 2,
+      "b": 5
+    }
+  },
+  {
+    "prompt": "What is the sum of -5 and 2?",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": -5,
+      "b": 2
+    }
+  },
+  {
+    "prompt": "What is the sum of 3.14 and 2.71?",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 3.14,
+      "b": 2.71
+    }
+  },
+  {
+    "prompt": "Multiply 4 times 3",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "Multiply four times three",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "Square root of -9",
+    "name": "fn_root",
+    "parameters": {
+      "value": -9
+    }
+  },
+  {
+    "prompt": "Reverse ''",
+    "name": "fn_reverse_word",
+    "parameters": {
+      "word": ""
+    }
+  },
+  {
+    "prompt": "Reverse \"\"",
+    "name": "fn_reverse_word",
+    "parameters": {
+      "word": ""
+    }
+  },
+  {
+    "prompt": "Reverse the string",
+    "name": "fn_reverse_string",
+    "parameters": {
+      "s": ""
+    }
+  },
+  {
+    "prompt": "Greet",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "Greet    john",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "Replace vowels in hello with *",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "",
+      "old": "[aeiouAEIOU]",
+      "new": "*"
+    }
+  },
+  {
+    "prompt": "Replace all numbers in 'abc123xyz' with NUM",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "abc123xyz",
+      "old": "[0-9]",
+      "new": "NUM"
+    }
+  },
+  {
+    "prompt": "Replace all digits in '12345'",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "12345",
+      "old": "[0-9]",
+      "new": "other"
+    }
+  },
+  {
+    "prompt": "Substitute 'cat' with 'dog'",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "dog",
+      "old": "cat",
+      "new": "dog"
+    }
+  },
+  {
+    "prompt": "Substitute 'cat' with 'dog' in ''",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "",
+      "old": "cat",
+      "new": "dog"
+    }
+  },
+  {
+    "prompt": "Replace 'a' with 'b' in 'banana'",
+    "name": "fn_replace",
+    "parameters": {
+      "source": "banana",
+      "old": "a",
+      "new": "b"
+    }
+  },
+  {
+    "prompt": "hello I need math maybe 2 + two",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 2,
+      "b": 2
+    }
+  },
+  {
+    "prompt": "\"unterminated string test",
+    "name": "fn_reverse_word",
+    "parameters": {
+      "word": ""
+    }
+  },
+  {
+    "prompt": "'broken quote test",
+    "name": "Function not found",
+    "parameters": {}
+  },
+  {
+    "prompt": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "name": "Function not found",
+    "parameters": {}
+  }
+]

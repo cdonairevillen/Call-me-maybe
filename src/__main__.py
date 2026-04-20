@@ -1,11 +1,19 @@
 import argparse
 import json
 import os
+import sys
 from .parser import load_functions, load_prompts
 from .pipeline import run_pipeline
 
 
 def main():
+
+    """
+    Run the function-calling pipeline.
+
+    Loads prompt inputs and function definitions from JSON files,
+    executes the pipeline, and writes the results to an output file.
+    """
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--input",
@@ -17,10 +25,27 @@ def main():
 
     args = parser.parse_args()
 
-    functions = load_functions(args.functions_definition)
-    prompts = load_prompts(args.input)
+    try:
 
-    results = run_pipeline(prompts, functions)
+        functions = load_functions(args.functions_definition)
+        prompts = load_prompts(args.input)
+
+    except FileNotFoundError as e:
+        print(f"Missing FIle: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    except json.JSONDecodeError as e:
+        print(f"Invalid JSON: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    except Exception as e:
+        print(f"Unexpected setup error: {e}", file=sys.stderr)
+
+    try:
+        results = run_pipeline(prompts, functions)
+
+    except Exception as e:
+        print(f"PIPELINE ERROR: {e}", file=sys.stderr)
 
     output = [r.model_dump() for r in results]
 

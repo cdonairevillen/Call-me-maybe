@@ -1,14 +1,117 @@
 [
   {
-    "prompt": "hello, I have a question about math, what is two + 2?",
+    "prompt": "What is the sum of 2 and 3?",
     "name": "fn_add_numbers",
     "parameters": {
-      "a": 2
+      "a": 2,
+      "b": 3
     }
   },
   {
-    "prompt": "Substitute the word 'cat' with 'dog' in 'The cat sat on the mat with another cat'",
+    "prompt": "What is the sum of 265 and 345?",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 265,
+      "b": 345
+    }
+  },
+  {
+    "prompt": "Greet shrek",
+    "name": "fn_greet",
+    "parameters": {
+      "name": "shrek"
+    }
+  },
+  {
+    "prompt": "Greet john",
+    "name": "fn_greet",
+    "parameters": {
+      "name": "john"
+    }
+  },
+  {
+    "prompt": "Reverse the string 'Hopopeiaslonguis'",
+    "name": "fn_reverse_string",
+    "parameters": {
+      "s": "Hopopeiaslonguis"
+    }
+  },
+  {
+    "prompt": "Reverse the string 'world'",
+    "name": "fn_reverse_string",
+    "parameters": {
+      "s": "world"
+    }
+  },
+  {
+    "prompt": "What is the square root of 1699?",
+    "name": "fn_get_square_root",
+    "parameters": {
+      "a": 1699
+    }
+  },
+  {
+    "prompt": "Calculate the square root of zero",
+    "name": "fn_get_square_root",
+    "parameters": {
+      "a": 0
+    }
+  },
+  {
+    "prompt": "Replace all numbers in \"Hello 34 I'm 233 years old\" with NUMBERS",
     "name": "fn_substitute_string_with_regex",
+    "parameters": {
+      "source_string": "Hello 34 I'm 233 years old",
+      "regex": "[0-9]",
+      "replacement": "NUMBERS"
+    }
+  },
+  {
+    "prompt": "Replace all consonants in 'Programming is fun' with asterisks",
+    "name": "fn_substitute_string_with_regex",
+    "parameters": {
+      "source_string": "Programming is fun",
+      "regex": "[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]",
+      "replacement": "*"
+    }
+  },
+  {
+    "prompt": "Multiply 4 times 3",
+    "name": "fn_multiply_numbers",
+    "parameters": {
+      "a": 4,
+      "b": 3
+    }
+  },
+  {
+    "prompt": "Root",
+    "name": "Function not found",
     "parameters": {}
+  },
+  {
+    "prompt": "replace everything that looks like a vowel",
+    "name": "fn_substitute_string_with_regex",
+    "parameters": {
+      "source_string": "",
+      "regex": "[aeiouAEIOU]",
+      "replacement": "other"
+    }
+  },
+  {
+    "prompt": "hello, I have a question about math, what is 2 + two?",
+    "name": "fn_add_numbers",
+    "parameters": {
+      "a": 2,
+      "b": 2
+    }
+  },
+  {
+    "prompt": "Substitute the word 'rat' with 'dog' in 'The rat sat on the mat with another cat'",
+    "name": "fn_substitute_string_with_regex",
+    "parameters": {
+      "source_string": "The rat sat on the mat with another cat",
+      "regex": "rat",
+      "replacement": "dog"
+    }
   }
 ]
