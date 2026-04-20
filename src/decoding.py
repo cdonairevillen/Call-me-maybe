@@ -2,7 +2,7 @@ import json
 from typing import Any
 
 
-def tensor_to_list(tensor: Any) -> list[int]:
+def tensor_to_list(tensor: Any) -> Any:
     """
     Convert a tensor output into a list of token ids.
 

@@ -6,7 +6,7 @@ from .parser import load_functions, load_prompts
 from .pipeline import run_pipeline
 
 
-def main():
+def main() -> None:
 
     """
     Run the function-calling pipeline.
@@ -21,7 +21,7 @@ def main():
     parser.add_argument("--functions_definition",
                         default="data/input/functions_definition.json")
     parser.add_argument("--output",
-                        default="data/output/result.json")
+                        default="data/output/function_calling_results.json")
 
     args = parser.parse_args()
 
@@ -40,6 +40,7 @@ def main():
 
     except Exception as e:
         print(f"Unexpected setup error: {e}", file=sys.stderr)
+        sys.exit(1)
 
     try:
         results = run_pipeline(prompts, functions)

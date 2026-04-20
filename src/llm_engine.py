@@ -1,4 +1,4 @@
-from llm_sdk import Small_LLM_Model
+from llm_sdk.__init__ import Small_LLM_Model
 from .decoding import tensor_to_list, load_vocab
 import re
 import numpy as np

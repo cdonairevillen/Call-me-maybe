@@ -1,0 +1,96 @@
+[
+  {
+    "name": "fn_add_numbers",
+    "description": "Add two numbers.",
+    "parameters": {
+      "a": { "type": "number" },
+      "b": { "type": "number" }
+    },
+    "returns": { "type": "number" }
+  },
+
+  {
+    "name": "fn_add_numbers_duplicate",
+    "description": "Add two numbers but with strings???",
+    "parameters": {
+      "a": { "type": "string" },
+      "b": { "type": "string" }
+    },
+    "returns": { "type": "number" }
+  },
+
+  {
+    "name": "fn_broken_json_missing_brace",
+    "description": "This function is intentionally broken"
+    "parameters": {
+      "x": { "type": "number" }
+    },
+    "returns": { "type": "number" }
+  },
+
+  {
+    "name": "fn_null_type",
+    "description": "Function with null type",
+    "parameters": {
+      "x": { "type": null }
+    },
+    "returns": { "type": "null" }
+  },
+
+  {
+    "name": "fn_weird_math",
+    "description": "Compute banana-space transformation of numbers",
+    "parameters": {
+      "input": { "type": "banana" },
+      "factor": { "type": "floatish" }
+    },
+    "returns": { "type": "banana" }
+  },
+
+  {
+    "name": "fn_reverse_string",
+    "description": "Reverse text including emojis 😂🔥 and symbols $$$",
+    "parameters": {
+      "s": { "type": "string" }
+    },
+    "returns": { "type": "string" }
+  },
+
+  {
+    "name": "fn_replace",
+    "description": "Replace text (but sometimes deletes everything)",
+    "parameters": {
+      "source": { "type": "string" },
+      "old": { "type": "string" },
+      "new": { "type": "string" }
+    },
+    "returns": { "type": "string" }
+  },
+
+  {
+    "name": "fn_replace_inconsistent",
+    "description": "Replace text but parameter names lie",
+    "parameters": {
+      "input_text": { "type": "string" },
+      "pattern": { "type": "number" },
+      "replacement": { "type": "string" }
+    },
+    "returns": { "type": "string" }
+  },
+
+  {
+    "name": "fn_empty_params",
+    "description": "No parameters at all",
+    "parameters": {},
+    "returns": { "type": "number" }
+  },
+
+  {
+    "name": "fn_infinite_recursion_hint",
+    "description": "Calls itself repeatedly in logic space",
+    "parameters": {
+      "depth": { "type": "number" }
+    },
+    "returns": { "type": "number" }
+  }
+]

@@ -1,57 +1,68 @@
-# ========================
-# CONFIG
-# ========================
+# Python UV makefile
 
-PYTHON      := python
-VENV        := .venv
-VENV_BIN    := $(VENV)/Scripts
-PIP         := $(VENV_BIN)/pip
-PY          := $(VENV_BIN)/python
+PY := python3
+UV := uv
 
-REQ         := requirements.txt
+USER_NAME := $(shell whoami)
 
-# ========================
-# INSTALL
-# ========================
+BASE := /goinfre/$(USER_NAME)/call_me_maybe_cache
+ARGS ?=
+
+VENV := .venv
+CACHE := $(BASE)/uv_cache
+TMP := $(BASE)/tmp
+HF := $(BASE)/hf_cache
+
+ENV := \
+	HF_HOME=$(HF) \
+	TRANSFORMERS_CACHE=$(HF) \
+	HF_DATASETS_CACHE=$(HF) \
+	UV_CACHE_DIR=$(CACHE) \
+	TMPDIR=$(TMP)
 
 install:
-	@echo "🔧 Creating virtual environment..."
-	$(PYTHON) -m venv $(VENV)
+	mkdir -p $(BASE) $(CACHE) $(TMP) $(HF)
 
-	@echo "📦 Installing dependencies..."
-	$(PIP) install --upgrade pip
-	$(PIP) install pydantic numpy
+	$(ENV) $(UV) venv $(VENV)
+	$(ENV) $(UV) sync
 
-# ========================
-# RUN
-# ========================
+update:
+	$(ENV) $(UV) sync --reinstall
 
 run:
-	@echo "🚀 Running project..."
-	$(PY) -m src
+	$(ENV) $(UV) run --project . $(PY) -m src $(ARGS)
 
-# ========================
-# DEBUG
-# ========================
+test:
+	$(ENV) $(UV) run --project . $(PY) -m src \
+	--functions_definition data/input/break_functions.json \
+	--input data/input/break_inputs.json \
+	--output data/output/result.json
 
 debug:
-	$(PY) -m pdb -m src
-
-# ========================
-# LINT
-# ========================
+	$(ENV) $(UV) run --project . $(PY) -m pdb -m src
 
 lint:
-	$(PIP) install flake8 mypy
-	$(VENV_BIN)/flake8 .
-	$(VENV_BIN)/mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
+	$(ENV) $(UV) run --project . flake8 src
+	$(ENV) $(UV) run --project . mypy src
 
-# ========================
-# CLEAN
-# ========================
+lint-strict:
+	$(ENV) $(UV) run --project . flake8 src
+	$(ENV) $(UV) run --project . mypy src --strict
+
 
 clean:
-	@echo "🧹 Cleaning..."
-	rm -rf __pycache__
-	rm -rf .mypy_cache
+	rm -rf $(BASE)
 	rm -rf $(VENV)
+	rm -rf .mypy_cache
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+
+re: clean install
+
+# If you want to use "uv sync" and "uv run", you will need to set by hand
+# the next env variables:
+
+# HF_HOME=/goinfre/cdonaire/call_me_maybe_cache/hf_cache
+# TRANSFORMERS_CACHE=/goinfre/cdonaire/call_me_maybe_cache/hf_cache
+# HF_DATASETS_CACHE=/goinfre/cdonaire/call_me_maybe_cache/hf_cache
+# UV_CACHE_DIR=/goinfre/cdonaire/call_me_maybe_cache/uv_cache
+# TMPDIR=/goinfre/cdonaire/call_me_maybe_cache/tmp

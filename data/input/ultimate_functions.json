@@ -1,0 +1,62 @@
+[
+  {
+    "name": "fn_add_numbers",
+    "description": "Add two numbers.",
+    "parameters": {
+      "a": { "type": "number" },
+      "b": { "type": "number" }
+    },
+    "returns": { "type": "number" }
+  },
+  {
+    "name": "fn_add_values",
+    "description": "Sum two numeric values.",
+    "parameters": {
+      "x": { "type": "number" },
+      "y": { "type": "number" }
+    },
+    "returns": { "type": "number" }
+  },
+  {
+    "name": "fn_root",
+    "description": "Get square root.",
+    "parameters": {
+      "value": { "type": "number" }
+    },
+    "returns": { "type": "number" }
+  },
+  {
+    "name": "fn_reverse_string",
+    "description": "Reverse text.",
+    "parameters": {
+      "s": { "type": "string" }
+    },
+    "returns": { "type": "string" }
+  },
+  {
+    "name": "fn_reverse_word",
+    "description": "Reverse one word.",
+    "parameters": {
+      "word": { "type": "string" }
+    },
+    "returns": { "type": "string" }
+  },
+  {
+    "name": "fn_replace",
+    "description": "Replace text.",
+    "parameters": {
+      "source": { "type": "string" },
+      "old": { "type": "string" },
+      "new": { "type": "string" }
+    },
+    "returns": { "type": "string" }
+  },
+  {
+    "name": "fn_weird",
+    "description": "Unknown weird action.",
+    "parameters": {
+      "blob": { "type": "banana" }
+    },
+    "returns": { "type": "banana" }
+  }
+]

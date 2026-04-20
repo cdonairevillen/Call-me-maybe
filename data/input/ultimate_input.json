@@ -1,0 +1,53 @@
+[
+  { "prompt": "" },
+  { "prompt": "   " },
+  { "prompt": "\n\n\n" },
+  { "prompt": "???" },
+  { "prompt": "!!!!!!!" },
+  { "prompt": "2 3 4 5 6 7 8 9 10" },
+  { "prompt": "sum sum sum sum" },
+
+  { "prompt": "add" },
+  { "prompt": "ADD" },
+  { "prompt": "Add ADD add" },
+
+  { "prompt": "What is 2++2?" },
+  { "prompt": "What is 2--2?" },
+  { "prompt": "What is 2///2?" },
+
+  { "prompt": "What is the sum of minus minus five?" },
+  { "prompt": "What is the sum of - - 5?" },
+
+  { "prompt": "Square root of -9 in real numbers" },
+  { "prompt": "Square root of -9 in complex domain" },
+
+  { "prompt": "Replace 'a' with 'b' in 'banana'" },
+  { "prompt": "Replace 'a' with 'b' in banana without quotes" },
+  { "prompt": "Replace a with b in banana" },
+
+  { "prompt": "Substitute 'cat' with 'dog' in 'catcatcat'" },
+  { "prompt": "Substitute cat with dog in catcatcat" },
+
+  { "prompt": "Reverse ''" },
+  { "prompt": "Reverse \"\"" },
+  { "prompt": "Reverse '\"'" },
+
+  { "prompt": "'unterminated string test" },
+  { "prompt": "\"unterminated string test" },
+  { "prompt": "broken 'quote \" mix" },
+
+  { "prompt": "   Add     two      numbers   3   and    4   " },
+  { "prompt": "add two numbers BUT ALSO reverse string pls" },
+
+  { "prompt": "I think maybe you should multiply 4 and 5 or maybe not" },
+
+  { "prompt": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" },
+
+  { "prompt": "🔢➕🔢" },
+  { "prompt": "数学の合計は何ですか" },
+  { "prompt": "¿cuánto es dos más dos?" },
+
+  { "prompt": "root of root of root of 256" },
+
+  { "prompt": "Replace vowels in hello with * and also reverse it and also add 2+2" }
+]
