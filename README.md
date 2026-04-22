@@ -91,7 +91,8 @@ Validate with Pydantic
 Run Pipeline
         ↓
 For each prompt:
-    LLM selects function
+    Deterministic guards filter invalid prompts
+    LLM selects function via constrained scoring
     Python extracts parameters
     JSON object is built
         ↓
@@ -131,21 +132,38 @@ It also includes:
 * encode cache
 * logits cache
 
-to improve performance.
+to improve performance. The pipeline pre-warms the encode cache with
+static strings shared across all prompts before the main loop runs.
 
 ---
 
 ## Function Selection Algorithm
 
-### Step 1 — Dynamic Prompt Construction
+### Step 1 — Deterministic Guards
 
-The model receives a routing prompt containing all available functions and the user request.
+Before the model is consulted, a cascade of guards rejects or redirects
+clearly invalid or unambiguous prompts:
 
-### Step 2 — Tokenization
+* Empty or corrupted prompts (unmatched quotes, excessive non-ASCII)
+* Prompts containing only numbers with no operator or verb
+* Greeting-only prompts when no greeting function exists
+* `minus` used as a negative sign, not a subtraction operator
+* Math operator keywords that have no matching function in the set
+
+These guards eliminate the most common failure modes without any model
+inference cost.
+
+### Step 2 — Dynamic Prompt Construction
+
+The model receives a routing prompt containing all available functions
+and the user request, with a priority hierarchy and strict examples
+that guide it toward the correct family of functions.
+
+### Step 3 — Tokenization
 
 The prompt is converted into token IDs using the model tokenizer.
 
-### Step 3 — Candidate Scoring
+### Step 4 — Candidate Scoring
 
 Instead of generating free text, the system evaluates valid candidates only:
 
@@ -154,13 +172,16 @@ Instead of generating free text, the system evaluates valid candidates only:
 * `fn_greet`
 * `Function not found`
 
-### Step 4 — Baseline Comparison
+### Step 5 — Baseline Comparison
 
 A neutral baseline prompt is scored to reduce token popularity bias.
 
-### Step 5 — Best Candidate Wins
+### Step 6 — Best Candidate Wins
 
-The highest final score is selected.
+The highest final score is selected, subject to a minimum confidence
+gap. The gap threshold is relaxed when strong external signals are
+present (math operators with sufficient numbers, explicit quoted
+arguments).
 
 ---
 
@@ -184,34 +205,46 @@ This guarantees:
 
 ## Parameter Extraction Strategy
 
-After the LLM selects the best matching function through constrained candidate scoring, parameters are extracted deterministically.
+After the LLM selects the best matching function, parameters are
+extracted through a layered strategy that prioritises determinism.
 
 ### Numeric Parameters
 
-Supports:
+Assigned by order of appearance in the prompt. Supports:
 
 * integers
 * decimals
-* negatives
-* number words
+* negative numbers expressed as digits (`-5`, `3.14`)
+* negative numbers expressed as words (`minus five`, `negative three`)
+* English number words up to twelve
 
 Examples:
 
 ```text
 two → 2
 zero → 0
--5 → -5
+minus five → -5
 3.14 → 3.14
 ```
 
-### String Parameters
+### String Parameters — Well-Known Roles
 
-Supports:
+Parameters named `source_string`, `regex`, and `replacement` are
+handled by dedicated deterministic extractors before the model is
+consulted:
 
-* quoted text
-* names
-* operands for reverse functions
-* generic strings
+* **source_string** — the longest quoted string after an `in '...'`
+  clause, or empty string when no explicit source is given.
+* **regex** — the regex pattern corresponding to any concept keyword
+  (`vowels`, `numbers`, `consonants`, etc.) found in the prompt.
+* **replacement** — the token or quoted string immediately after
+  `with` or `por`, preserving ALL-CAPS labels as-is.
+
+### String Parameters — Generic Roles
+
+Parameters with unrecognised names fall through to logit-based
+candidate ranking. The candidate pool is built from quoted strings,
+an `in <text>` tail heuristic, or n-grams as a last resort.
 
 ### Substitution Functions
 
@@ -219,21 +252,22 @@ Supports prompts like:
 
 ```text
 Replace vowels with *
-Replace numbers with NUMBERS
-Substitute 'cat' with 'dog'
+Replace all numbers in 'abc123' with NUM
+Substitute 'cat' with 'dog' in 'the cat sat'
 ```
 
 Mapped roles:
 
-* source text
-* search pattern
-* replacement value
+* source text → `source_string`
+* search pattern → `regex`
+* replacement value → `replacement`
 
 ---
 
 ## JSON Output Strategy
 
-Instead of asking the model to generate JSON directly, Python builds the final structure:
+Instead of asking the model to generate JSON directly, Python builds
+the final structure:
 
 ```python
 {
@@ -285,7 +319,8 @@ Optimizations:
 
 * encode cache
 * logits cache
-* deterministic extraction
+* deterministic extraction for known parameter roles
+* static string pre-warming before the prompt loop
 * modular processing
 
 Targets achieved:
@@ -336,16 +371,20 @@ Tested with:
 * greetings
 * roots
 * reverse strings
+* regex substitution
 
 ### Edge Cases
 
 * empty prompts
+* corrupted or unmatched quotes
 * unsupported verbs
 * decimals
-* negatives
+* negatives expressed as digits and words
 * one-word prompts
 * ambiguous requests
 * quoted strings
+* prompts with only numbers
+* greeting verbs without a greeting function
 
 ### Validation
 
@@ -438,7 +477,8 @@ AI tools were used as assistants for:
 * documentation drafting
 * adversarial testing ideas
 
-All implementation logic, debugging decisions, architecture choices, and final validation were manually reviewed and understood.
+All implementation logic, debugging decisions, architecture choices,
+and final validation were manually reviewed and understood.
 
 ---
 
@@ -447,6 +487,7 @@ All implementation logic, debugging decisions, architecture choices, and final v
 Possible next versions:
 
 * full token-by-token JSON constrained decoder
+* parameter name synonym mapping for generic roles
 * boolean parameters
 * nested schemas
 * multilingual prompts
@@ -460,4 +501,5 @@ Possible next versions:
 
 Reliable AI systems are usually not pure AI systems.
 
-They are engineered systems where language models and deterministic software complement each other.
+They are engineered systems where language models and deterministic
+software complement each other.
