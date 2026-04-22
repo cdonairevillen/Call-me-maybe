@@ -7,31 +7,28 @@ from .pipeline import run_pipeline
 
 
 def main() -> None:
-
     """
     Run the function-calling pipeline.
 
     Loads prompt inputs and function definitions from JSON files,
     executes the pipeline, and writes the results to an output file.
     """
-
     parser = argparse.ArgumentParser()
     parser.add_argument("--input",
                         default="data/input/function_calling_tests.json")
     parser.add_argument("--functions_definition",
                         default="data/input/functions_definition.json")
     parser.add_argument("--output",
-                        default="data/output/function_calling_results.json")
+                        default="data/output/result.json")
 
     args = parser.parse_args()
 
     try:
-
         functions = load_functions(args.functions_definition)
         prompts = load_prompts(args.input)
 
     except FileNotFoundError as e:
-        print(f"Missing FIle: {e}", file=sys.stderr)
+        print(f"Missing file: {e}", file=sys.stderr)
         sys.exit(1)
 
     except json.JSONDecodeError as e:
@@ -47,6 +44,7 @@ def main() -> None:
 
     except Exception as e:
         print(f"PIPELINE ERROR: {e}", file=sys.stderr)
+        sys.exit(1)
 
     output = [r.model_dump() for r in results]
 
@@ -57,5 +55,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-
     main()

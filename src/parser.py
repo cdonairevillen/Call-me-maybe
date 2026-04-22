@@ -65,5 +65,5 @@ def load_prompts(path: str) -> List[PromptInput]:
             prompts.append(PromptInput(**prompt))
 
         except Exception as e:
-            print(f"INVALID PROMPR SKIPPED: {e}")
+            print(f"INVALID PROMPT SKIPPED: {e}")
     return prompts

@@ -4,10 +4,9 @@ from .models import FunctionDefinition, FunctionCallOutput, PromptInput
 from .llm_engine import LLMEngine
 
 
-def run_pipeline(
-    prompts: List[PromptInput],
-    functions: List[FunctionDefinition],
-) -> List[FunctionCallOutput]:
+def run_pipeline(prompts: List[PromptInput],
+                 functions: List[FunctionDefinition]
+                 ) -> List[FunctionCallOutput]:
     """
     Run prompts through the LLM engine.
 
@@ -19,6 +18,14 @@ def run_pipeline(
         List of generated function calls.
     """
     engine = LLMEngine()
+
+    static_texts = [
+        "Function not found",
+        "...",] + [fn.name for fn in functions]
+
+    for t in static_texts:
+        engine.encode(t)
+
     results: List[FunctionCallOutput] = []
 
     for prompt in prompts:
