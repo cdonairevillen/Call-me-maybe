@@ -1,6 +1,6 @@
 *This project has been created as part of the 42 curriculum by cdonaire*
 
-# call me maybe
+# Call me maybe
 
 ## Introduction to Function Calling in LLMs
 
